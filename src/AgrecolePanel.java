@@ -8,14 +8,17 @@ import java.awt.event.KeyEvent;
 
 
 /*
+
     File Created by: Hachemi Hamadi
-    Mini Project Module IHM
+    Mini Project Module IHM : Zakat Calculator
     Source Code published on GitHub (@bicho19)
+    Link : https://github.com/bicho19/Zakat-Calculator
 
  */
 
 public class AgrecolePanel extends JPanel {
     private final Color bgColor = MaterialColors.GREEN_300;
+    private final String zakatText = "Total Zakat: ";
 
     public AgrecolePanel() {
         //To position the elements manually with setBounds
@@ -50,33 +53,33 @@ public class AgrecolePanel extends JPanel {
         typeIrrigationTxt.setForeground(Color.white);
         add(typeIrrigationTxt);
 
-        JCheckBoxMenuItem choix1=new JCheckBoxMenuItem("ble");
-        choix1.setBounds(110, 120, 150, 20);
-        choix1.setForeground(Color.white);
-        choix1.setBackground(bgColor);
-        typeBG.add(choix1);
-        add(choix1);
+        JCheckBoxMenuItem bleCheckBox = new JCheckBoxMenuItem("Ble");
+        bleCheckBox.setBounds(110, 120, 150, 20);
+        bleCheckBox.setForeground(Color.white);
+        bleCheckBox.setBackground(bgColor);
+        typeBG.add(bleCheckBox);
+        add(bleCheckBox);
 
-        JCheckBoxMenuItem choix2=new JCheckBoxMenuItem("autre");
-        choix2.setBounds(110, 140, 150, 20);
-        choix2.setForeground(Color.white);
-        choix2.setBackground(bgColor);
-        typeBG.add(choix2);
-        add(choix2);
+        JCheckBoxMenuItem autreCheckBox = new JCheckBoxMenuItem("Autre");
+        autreCheckBox.setBounds(110, 140, 150, 20);
+        autreCheckBox.setForeground(Color.white);
+        autreCheckBox.setBackground(bgColor);
+        typeBG.add(autreCheckBox);
+        add(autreCheckBox);
 
-        JCheckBoxMenuItem choix3=new JCheckBoxMenuItem("irrigation naturelle");
-        choix3.setBounds(410, 120, 200, 20);
-        choix3.setForeground(Color.white);
-        choix3.setBackground(bgColor);
-        irrigationBG.add(choix3);
-        add(choix3);
+        JCheckBoxMenuItem irrigationNaturelleCheckbox = new JCheckBoxMenuItem("Irrigation naturelle");
+        irrigationNaturelleCheckbox.setBounds(410, 120, 200, 20);
+        irrigationNaturelleCheckbox.setForeground(Color.white);
+        irrigationNaturelleCheckbox.setBackground(bgColor);
+        irrigationBG.add(irrigationNaturelleCheckbox);
+        add(irrigationNaturelleCheckbox);
 
-        JCheckBoxMenuItem choix4=new JCheckBoxMenuItem("irrigation artificiellre");
-        choix4.setBounds(410, 140, 200, 20);
-        choix4.setForeground(Color.white);
-        choix4.setBackground(bgColor);
-        irrigationBG.add(choix4);
-        add(choix4);
+        JCheckBoxMenuItem irrigationArtificiellreCheckBox = new JCheckBoxMenuItem("Irrigation artificielle");
+        irrigationArtificiellreCheckBox.setBounds(410, 140, 200, 20);
+        irrigationArtificiellreCheckBox.setForeground(Color.white);
+        irrigationArtificiellreCheckBox.setBackground(bgColor);
+        irrigationBG.add(irrigationArtificiellreCheckBox);
+        add(irrigationArtificiellreCheckBox);
 
 
 
@@ -86,40 +89,83 @@ public class AgrecolePanel extends JPanel {
         montant.setForeground(Color.white);
         add(montant);
 
-		/* JLabel t  =new JLabel("Tapez des chiffres  seulement! ");
-		  	t.setBounds(350, 200, 300, 20);
-		  	t.setForeground(Color.red);
-		  	t.setFont(font1);
-		  	pan.add(t);*/
 
-
-        JLabel total  =new JLabel("Total Zakat: ");
+        JLabel total  =new JLabel(zakatText);
         total.setBounds(180, 300, 300, 20);
         total.setForeground(Color.white);
+        total.setVisible(false);
         add(total);
 
-        JTextField textquantite =new JTextField();
-        textquantite.setBounds(200, 200, 100, 40);
-        add(textquantite);
-        textquantite.addKeyListener(new KeyAdapter() {
-            public void keyTyped(KeyEvent e) {
-                char c = e.getKeyChar();
-                if (!((c >= '0') && (c <= '9') ||(c=='.')
+        JLabel errorTxt  =new JLabel("Error ! you should enter a number");
+        errorTxt.setBounds(180, 250, 300, 20);
+        errorTxt.setForeground(Color.RED);
+        errorTxt.setVisible(false);
+        add(errorTxt);
 
-                )) {
+        JTextField valueTxtField =new JTextField();
+        valueTxtField.setBounds(200, 200, 100, 40);
+        add(valueTxtField);
+        valueTxtField.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                if (errorTxt.isVisible()) errorTxt.setVisible(false);
+                char c = e.getKeyChar();
+                if (!((c >= '0') && (c <= '9') ||(c=='.'))) {
                     e.consume();
                 }
             }
         });
 
 
-        JButton calculer =new JButton("Calculer");
-        calculer.setBounds(330, 210, 120, 40);
-        calculer.setBackground(MaterialColors.ORANGE_300);
-        //calculer.setBorder(BorderFactory.createLineBorder(Color.white,2));
-        calculer.setForeground(Color.white);
-        add(calculer);
+        JButton calculBtn =new JButton("Calculer");
+        calculBtn.setBounds(330, 200, 120, 40);
+        calculBtn.setBackground(MaterialColors.ORANGE_300);
+        calculBtn.setForeground(Color.white);
+        MaterialUIMovement.add(calculBtn,MaterialColors.ORANGE_500);
+        add(calculBtn);
 
+
+        /*
+                Calculation Block
+
+         */
+
+        calculBtn.addActionListener(e -> {
+
+            //Get the value from text fields and convert it
+            if (valueTxtField.getText().length() > 0){
+                int value = Integer.parseInt(valueTxtField.getText());
+                total.setVisible(true);
+                if((irrigationNaturelleCheckbox.isSelected()) && (bleCheckBox.isSelected()) &&(value>=675) )
+                    total.setText(zakatText+ " " +((value*10)/100)+" Kg ");
+                else
+                {
+                    if((irrigationArtificiellreCheckBox.isSelected())&&(bleCheckBox.isSelected())&&(value>=675) )
+                        total.setText(zakatText+ " " +value*5/100+" Kg ");
+                    else
+                    {
+                        if((irrigationNaturelleCheckbox.isSelected())&&(autreCheckBox.isSelected()) )
+                            total.setText(zakatText+ " " + value*10/100+" Kg ");
+                        else
+                        {
+                            if((irrigationArtificiellreCheckBox.isSelected())&&(autreCheckBox.isSelected()) )
+                                total.setText(zakatText+ " " + value*5/100+" Kg ");
+                            else
+                            {
+                                total.setText(zakatText+" Quorum n'est pas atteint ");
+                            }
+                        }
+                    }
+
+
+                }
+
+
+
+            } else {
+                errorTxt.setVisible(true);
+            }
+
+        });
 
 
 
