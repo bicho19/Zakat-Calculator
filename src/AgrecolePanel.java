@@ -133,7 +133,7 @@ public class AgrecolePanel extends JPanel {
 
             //Get the value from text fields and convert it
             if (valueTxtField.getText().length() > 0){
-                int value = Integer.parseInt(valueTxtField.getText());
+                float value = Float.parseFloat(valueTxtField.getText());
                 total.setVisible(true);
                 if((irrigationNaturelleCheckbox.isSelected()) && (bleCheckBox.isSelected()) &&(value>=675) )
                     total.setText(zakatText+ " " +((value*10)/100)+" Kg ");
@@ -155,29 +155,12 @@ public class AgrecolePanel extends JPanel {
                             }
                         }
                     }
-
-
                 }
-
-
-
             } else {
                 errorTxt.setVisible(true);
             }
 
         });
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         //Return Home Button Block

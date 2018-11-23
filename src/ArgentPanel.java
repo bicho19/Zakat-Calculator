@@ -9,7 +9,9 @@ import java.awt.event.KeyEvent;
 class ArgentPanel extends JPanel {
 
      private final Color bgColor = MaterialColors.TEAL_300;
-     ArgentPanel(){
+    private final String zakatText = "Total Zakat: ";
+
+    ArgentPanel(){
 
          //To position the elements manually with setBounds
          setLayout(null);
@@ -31,28 +33,36 @@ class ArgentPanel extends JPanel {
 
 
          JLabel quantite =new JLabel("Quantité (g): ");
-         quantite.setBounds(10, 160, 200, 20);
+         quantite.setBounds(100, 120, 200, 40);
          quantite.setForeground(Color.white);
          add(quantite);
 
 
 
          JLabel prix =new JLabel("prix de gramme(DA): ");
-         prix.setBounds(10, 200, 200, 20);
+         prix.setBounds(100, 180, 200, 40);
          prix.setForeground(Color.white);
          add(prix);
 
-         JLabel total  =new JLabel("Total Zakat: ");
-         total.setBounds(50, 300, 300, 20);
-         total.setForeground(Color.white);
-         add(total);
+        JLabel errorTxt  =new JLabel("Error ! Check All Fields Please.");
+        errorTxt.setBounds(250, 300, 300, 20);
+        errorTxt.setForeground(Color.RED);
+        errorTxt.setVisible(false);
+        add(errorTxt);
+
+         JLabel zakatTotalLabel  =new JLabel(zakatText);
+         zakatTotalLabel.setBounds(150, 330, 500, 20);
+         zakatTotalLabel.setForeground(Color.white);
+         zakatTotalLabel.setVisible(false);
+         add(zakatTotalLabel);
 
 
-         JTextField textquantite =new JTextField();
-         textquantite.setBounds(180, 160, 100, 20);
-         add(textquantite);
-         textquantite.addKeyListener(new KeyAdapter() {
+         JTextField quantityTextField =new JTextField();
+         quantityTextField.setBounds(250, 120, 100, 40);
+         add(quantityTextField);
+         quantityTextField.addKeyListener(new KeyAdapter() {
              public void keyTyped(KeyEvent e) {
+                 if (errorTxt.isVisible()) errorTxt.setVisible(false);
                  char c = e.getKeyChar();
                  if (!((c >= '0') && (c <= '9') || (c=='.')
                  )) {
@@ -63,11 +73,12 @@ class ArgentPanel extends JPanel {
 
 
 
-         JTextField textprix =new JTextField();
-         textprix.setBounds(180, 200, 100, 20);
-         add(textprix);
-         textprix.addKeyListener(new KeyAdapter() {
+         JTextField gramePriceField =new JTextField();
+         gramePriceField.setBounds(250, 180, 100, 40);
+         add(gramePriceField);
+         gramePriceField.addKeyListener(new KeyAdapter() {
              public void keyTyped(KeyEvent e) {
+                 if (errorTxt.isVisible()) errorTxt.setVisible(false);
                  char c = e.getKeyChar();
                  if (!((c >= '0') && (c <= '9') || (c=='.')
                  )) {
@@ -76,16 +87,39 @@ class ArgentPanel extends JPanel {
              }
          });
 
-         JButton calculer =new JButton("calculer");
-         calculer.setBounds(180, 240, 120, 40);
-         calculer.setBackground(MaterialColors.TEAL_800);
-         //calculer.setBorder(BorderFactory.createLineBorder(Color.white,2));
-         calculer.setForeground(MaterialColors.WHITE);
-         add(calculer);
+         JButton calculBtn =new JButton("Calculer");
+         calculBtn.setBounds(250, 240, 120, 40);
+         calculBtn.setBackground(MaterialColors.TEAL_800);
+         MaterialUIMovement.add(calculBtn,MaterialColors.TEAL_600);
+         calculBtn.setForeground(MaterialColors.WHITE);
+         add(calculBtn);
+
+
+
+         /*
+                Calculation Block
+
+          */
+
+         calculBtn.addActionListener(e -> {
+
+
+             if ((quantityTextField.getText().length() > 0) && (gramePriceField.getText().length() >0)) {
+                 zakatTotalLabel.setVisible(true);
+                 float quantity = Float.parseFloat(quantityTextField.getText());
+                 float price = Float.parseFloat(gramePriceField.getText());
+                 if(quantity>=595)
+                     zakatTotalLabel.setText(zakatText + quantity*price*1/40+" DA, prix de "+ quantity*1/40+" g");
+                 else
+                     zakatTotalLabel.setText(zakatText +" Quorum n'est pas atteint ");
+             } else {
+                 errorTxt.setVisible(true);
+             }
 
 
 
 
+         });
 
 
 
