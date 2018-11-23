@@ -90,11 +90,11 @@ public class AgrecolePanel extends JPanel {
         add(montant);
 
 
-        JLabel total  =new JLabel(zakatText);
-        total.setBounds(180, 300, 300, 20);
-        total.setForeground(Color.white);
-        total.setVisible(false);
-        add(total);
+        JLabel zakatTextLabel  =new JLabel(zakatText);
+        zakatTextLabel.setBounds(180, 300, 300, 20);
+        zakatTextLabel.setForeground(Color.white);
+        zakatTextLabel.setVisible(false);
+        add(zakatTextLabel);
 
         JLabel errorTxt  =new JLabel("Error ! you should enter a number");
         errorTxt.setBounds(180, 250, 300, 20);
@@ -134,24 +134,24 @@ public class AgrecolePanel extends JPanel {
             //Get the value from text fields and convert it
             if (valueTxtField.getText().length() > 0){
                 float value = Float.parseFloat(valueTxtField.getText());
-                total.setVisible(true);
+                zakatTextLabel.setVisible(true);
                 if((irrigationNaturelleCheckbox.isSelected()) && (bleCheckBox.isSelected()) &&(value>=675) )
-                    total.setText(zakatText+ " " +((value*10)/100)+" Kg ");
+                    zakatTextLabel.setText(zakatText+ " " +((value*10)/100)+" Kg ");
                 else
                 {
                     if((irrigationArtificiellreCheckBox.isSelected())&&(bleCheckBox.isSelected())&&(value>=675) )
-                        total.setText(zakatText+ " " +value*5/100+" Kg ");
+                        zakatTextLabel.setText(zakatText+ " " +value*5/100+" Kg ");
                     else
                     {
                         if((irrigationNaturelleCheckbox.isSelected())&&(autreCheckBox.isSelected()) )
-                            total.setText(zakatText+ " " + value*10/100+" Kg ");
+                            zakatTextLabel.setText(zakatText+ " " + value*10/100+" Kg ");
                         else
                         {
                             if((irrigationArtificiellreCheckBox.isSelected())&&(autreCheckBox.isSelected()) )
-                                total.setText(zakatText+ " " + value*5/100+" Kg ");
+                                zakatTextLabel.setText(zakatText+ " " + value*5/100+" Kg ");
                             else
                             {
-                                total.setText(zakatText+" Quorum n'est pas atteint ");
+                                zakatTextLabel.setText(zakatText+" Quorum n'est pas atteint ");
                             }
                         }
                     }
