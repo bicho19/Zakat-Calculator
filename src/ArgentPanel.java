@@ -6,6 +6,15 @@ import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+/*
+
+    File Created by: Hachemi Hamadi
+    Mini Project Module IHM : Zakat Calculator
+    Source Code published on GitHub (@bicho19)
+    Link : https://github.com/bicho19/Zakat-Calculator
+
+ */
+
 class ArgentPanel extends JPanel {
 
      private final Color bgColor = MaterialColors.TEAL_300;

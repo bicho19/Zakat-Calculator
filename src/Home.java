@@ -3,6 +3,15 @@ import mdlaf.MaterialLookAndFeel;
 import javax.swing.*;
 import java.awt.*;
 
+/*
+
+    File Created by: Hachemi Hamadi
+    Mini Project Module IHM : Zakat Calculator
+    Source Code published on GitHub (@bicho19)
+    Link : https://github.com/bicho19/Zakat-Calculator
+
+ */
+
 public class Home {
     private static JFrame frame;
     private static HomePanel homePanel = new HomePanel();
@@ -20,7 +29,7 @@ public class Home {
     }
 
 
-    public static void swap(JPanel current, JPanel next) {
+    static void swap(JPanel current, JPanel next) {
         SwingUtilities.invokeLater(() -> {
             frame.remove(current);
             frame.add(next);

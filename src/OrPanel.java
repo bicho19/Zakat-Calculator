@@ -6,8 +6,19 @@ import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+
+/*
+
+    File Created by: Hachemi Hamadi
+    Mini Project Module IHM : Zakat Calculator
+    Source Code published on GitHub (@bicho19)
+    Link : https://github.com/bicho19/Zakat-Calculator
+
+ */
+
 class OrPanel extends JPanel {
     private final Color bgColor = MaterialColors.AMBER_400;
+    private final String zakatTitle = "Total Zakat: ";
 
     OrPanel() {
         //To position the elements manually with setBounds
@@ -20,67 +31,69 @@ class OrPanel extends JPanel {
          */
         JLabel panelTitle  =new JLabel("Or (Gold)");
         panelTitle.setBounds(250, 30, 300, 40);
-        panelTitle.setForeground(Color.white);
+        panelTitle.setForeground(Color.black);
         panelTitle.setFont(panelTitle.getFont().deriveFont(40f));
         add(panelTitle);
 
 
         JLabel goldTypeLabelTxt =new JLabel("Quel est le type d'or ? ");
-        goldTypeLabelTxt.setBounds(10, 100, 200, 20);
-        goldTypeLabelTxt.setForeground(Color.white);
+        goldTypeLabelTxt.setBounds(100, 110, 200, 20);
+        goldTypeLabelTxt.setForeground(Color.black);
         add(goldTypeLabelTxt);
 
         ButtonGroup  goldTypeBG =new ButtonGroup ();
 
         JCheckBoxMenuItem choix1=new JCheckBoxMenuItem("24 carats");
-        choix1.setBounds(10, 120, 100, 20);
-        choix1.setForeground(Color.white);
+        choix1.setBounds(110, 130, 100, 20);
+        choix1.setForeground(Color.black);
         choix1.setBackground(bgColor);
         goldTypeBG.add(choix1);
         add(choix1);
 
         JCheckBoxMenuItem choix2=new JCheckBoxMenuItem("21 carats");
-        choix2.setBounds(10, 140, 100, 20);
-        choix2.setForeground(Color.white);
+        choix2.setBounds(110, 150, 100, 20);
+        choix2.setForeground(Color.black);
         choix2.setBackground(bgColor);
         goldTypeBG.add(choix2);
         add(choix2);
 
         JCheckBoxMenuItem choix3=new JCheckBoxMenuItem("18 carats");
-        choix3.setBounds(10, 160, 100, 20);
-        choix3.setForeground(Color.white);
+        choix3.setBounds(110, 170, 100, 20);
+        choix3.setForeground(Color.black);
         choix3.setBackground(bgColor);
         goldTypeBG.add(choix3);
         add(choix3);
 
         JLabel quantite =new JLabel("Quantité (g): ");
-        quantite.setBounds(10, 210, 200, 20);
-        quantite.setForeground(Color.white);
+        quantite.setBounds(110, 220, 200, 20);
+        quantite.setForeground(Color.black);
         add(quantite);
 
 
 
         JLabel prix =new JLabel("prix de gramme(DA): ");
-        prix.setBounds(10, 240, 200, 20);
-        prix.setForeground(Color.white);
+        prix.setBounds(110, 250, 200, 20);
+        prix.setForeground(Color.black);
         add(prix);
 
-        JLabel total  =new JLabel("Total Zakat: ");
-        total.setBounds(180, 350, 300, 20);
-        total.setForeground(Color.white);
-        add(total);
+        JLabel errorTxt = new JLabel("Error ! Please check all the fields");
+        errorTxt.setBounds(250, 290, 300, 20);
+        errorTxt.setForeground(Color.RED);
+        errorTxt.setVisible(false);
+        add(errorTxt);
 
-		 /*JLabel t  =new JLabel("Tapez des chiffres seulement! ");
-		  	t.setBounds(300, 220, 300, 20);
-		  	t.setForeground(Color.red);
-		  	t.setFont(font1);
-		  	pan.add(t);
-		*/
-        JTextField textquantite =new JTextField();
-        textquantite.setBounds(180, 210, 100, 40);
-        add(textquantite);
-        textquantite.addKeyListener(new KeyAdapter() {
+        JLabel zakatPrice = new JLabel(zakatTitle);
+        zakatPrice.setBounds(180, 340, 300, 20);
+        zakatPrice.setForeground(Color.black);
+        zakatPrice.setVisible(false);
+        add(zakatPrice);
+
+        JTextField quantityTextField = new JTextField();
+        quantityTextField.setBounds(250, 210, 100, 40);
+        add(quantityTextField);
+        quantityTextField.addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
+                if (errorTxt.isVisible()) errorTxt.setVisible(false);
                 char c = e.getKeyChar();
                 if (!((c >= '0') && (c <= '9') || (c=='.')
                 )) {
@@ -90,11 +103,12 @@ class OrPanel extends JPanel {
         });
 
 
-        JTextField textprix =new JTextField();
-        textprix.setBounds(180, 240, 100, 40);
-        add(textprix);
-        textprix.addKeyListener(new KeyAdapter() {
+        JTextField priceTextField = new JTextField();
+        priceTextField.setBounds(250, 240, 100, 40);
+        add(priceTextField);
+        priceTextField.addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
+                if (errorTxt.isVisible()) errorTxt.setVisible(false);
                 char c = e.getKeyChar();
                 if (!((c >= '0') && (c <= '9') || (c=='.')
                 )) {
@@ -103,12 +117,47 @@ class OrPanel extends JPanel {
             }
         });
 
-        JButton calculer =new JButton("Calculer");
-        calculer.setBounds(400, 210, 120, 40);
-        calculer.setBackground(MaterialColors.BLUE_GRAY_500);
-        //calculer.setBorder(BorderFactory.createLineBorder(Color.white,2));
-        calculer.setForeground(Color.white);
-        add(calculer);
+        JButton calculBtn = new JButton("Calculer");
+        calculBtn.setBounds(430, 230, 120, 40);
+        calculBtn.setBackground(MaterialColors.BLUE_GRAY_500);
+        MaterialUIMovement.add(calculBtn, MaterialColors.BLUE_GRAY_300);
+        calculBtn.setForeground(Color.white);
+        add(calculBtn);
+
+
+        calculBtn.addActionListener(e -> {
+
+            /*
+                    Calcuation Block
+             */
+
+            if ((quantityTextField.getText().length() > 0) && (priceTextField.getText().length() > 0)) {
+                errorTxt.setVisible(false);
+                zakatPrice.setVisible(true);
+                float quantity = Float.parseFloat(quantityTextField.getText());
+                float price = Float.parseFloat(priceTextField.getText());
+
+                if ((quantity >= 85) && (choix1.isSelected()))
+                    zakatPrice.setText(zakatTitle + quantity * price * 1 / 40 + " DA, prix de " + quantity * 1 / 40 + "g");
+                else {
+                    if ((quantity >= 97) && (choix2.isSelected()))
+                        zakatPrice.setText(zakatTitle + quantity * price * 1 / 40 + " DA, prix de " + quantity * 1 / 40 + "g");
+                    else {
+                        if ((quantity >= 113) && (choix3.isSelected()))
+                            zakatPrice.setText(zakatTitle + quantity * price * 1 / 40 + " DA, prix de " + quantity * 1 / 40 + "g");
+                        else
+                            zakatPrice.setText(zakatTitle + " Quorum n'est pas atteint ");
+                    }
+
+
+                }
+
+            } else {
+                errorTxt.setVisible(true);
+            }
+
+
+        });
 
 
 

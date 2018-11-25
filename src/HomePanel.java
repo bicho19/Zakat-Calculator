@@ -4,11 +4,20 @@ import mdlaf.utils.MaterialColors;
 import javax.swing.*;
 import java.awt.*;
 
-public class HomePanel extends JPanel {
+
+/*
+
+    File Created by: Hachemi Hamadi
+    Mini Project Module IHM : Zakat Calculator
+    Source Code published on GitHub (@bicho19)
+    Link : https://github.com/bicho19/Zakat-Calculator
+
+ */
+class HomePanel extends JPanel {
 
     private final int iconTxtGap = 20;
 
-   public HomePanel() {
+    HomePanel() {
         setLayout(null);
         setBackground(MaterialColors.PURPLE_500);
 
@@ -31,7 +40,7 @@ public class HomePanel extends JPanel {
         JButton agrecoleBtn = new JButton("Agrecole");
         agrecoleBtn.setBackground(MaterialColors.GREEN_400);
         agrecoleBtn.setBounds(50,200,150,40);
-        MaterialUIMovement.add(agrecoleBtn,MaterialColors.GREEN_100);
+        MaterialUIMovement.add(agrecoleBtn, MaterialColors.GREEN_200);
         agrecoleBtn.setIcon(new ImageIcon(this.getClass().getResource("/icons/agriculture.png")));
         agrecoleBtn.setHorizontalAlignment(SwingConstants.LEFT);
         agrecoleBtn.setIconTextGap(iconTxtGap);
@@ -41,7 +50,7 @@ public class HomePanel extends JPanel {
         JButton argentBtn = new JButton("Argent");
         argentBtn.setBackground(MaterialColors.GREEN_400);
         argentBtn.setBounds(250,200,150,40);
-        MaterialUIMovement.add(argentBtn,MaterialColors.GREEN_100);
+        MaterialUIMovement.add(argentBtn, MaterialColors.GREEN_200);
         argentBtn.setIcon(new ImageIcon(this.getClass().getResource("icons/cash-100.png")));
         argentBtn.setHorizontalAlignment(SwingConstants.LEFT);
         argentBtn.setIconTextGap(iconTxtGap);
@@ -51,7 +60,7 @@ public class HomePanel extends JPanel {
         JButton betailsBtn = new JButton("Betails");
         betailsBtn.setBackground(MaterialColors.GREEN_400);
         betailsBtn.setBounds(460,200,150,40);
-        MaterialUIMovement.add(betailsBtn,MaterialColors.GREEN_100);
+        MaterialUIMovement.add(betailsBtn, MaterialColors.GREEN_200);
         betailsBtn.setIcon(new ImageIcon(getClass().getResource("/icons/cow.png")));
         betailsBtn.setHorizontalAlignment(SwingConstants.LEFT);
         betailsBtn.setIconTextGap(iconTxtGap);
@@ -61,7 +70,7 @@ public class HomePanel extends JPanel {
         JButton orBtn = new JButton("Or (Gold)");
         orBtn.setBackground(MaterialColors.GREEN_400);
         orBtn.setBounds(160,270,150,40);
-        MaterialUIMovement.add(orBtn,MaterialColors.GREEN_100);
+        MaterialUIMovement.add(orBtn, MaterialColors.GREEN_200);
         orBtn.setIcon(new ImageIcon(this.getClass().getResource("/icons/gold-white.png")));
         orBtn.setHorizontalAlignment(SwingConstants.LEFT);
         orBtn.setIconTextGap(iconTxtGap);
@@ -71,7 +80,8 @@ public class HomePanel extends JPanel {
         JButton numeraireBtn = new JButton("Numeraires");
         numeraireBtn.setBackground(MaterialColors.GREEN_400);
         numeraireBtn.setBounds(340,270,150,40);
-        MaterialUIMovement.add(numeraireBtn,MaterialColors.GREEN_100);
+        MaterialUIMovement.add(numeraireBtn, MaterialColors.GREEN_200);
+        numeraireBtn.setIcon(new ImageIcon(this.getClass().getResource("icons/cash-100.png")));
         numeraireBtn.setHorizontalAlignment(SwingConstants.LEFT);
         numeraireBtn.setIconTextGap(iconTxtGap);
         numeraireBtn.addActionListener(e -> Home.swap(this, new NumerairesPanel()));

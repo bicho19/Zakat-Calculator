@@ -16,11 +16,11 @@ import java.awt.event.KeyEvent;
 
  */
 
-public class AgrecolePanel extends JPanel {
+class AgrecolePanel extends JPanel {
     private final Color bgColor = MaterialColors.GREEN_300;
     private final String zakatText = "Total Zakat: ";
 
-    public AgrecolePanel() {
+    AgrecolePanel() {
         //To position the elements manually with setBounds
         setLayout(null);
         setBackground(bgColor);
